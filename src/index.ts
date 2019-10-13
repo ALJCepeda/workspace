@@ -1,9 +1,12 @@
+import * as dotenv from 'dotenv';
 import * as simplegit from 'simple-git/promise';
 import * as fs from 'fs';
 import * as rimraf from 'rimraf';
 import { promisify } from 'util';
 import * as childProcess from 'child_process';
 import * as ncp from 'ncp';
+
+dotenv.config();
 
 const git = simplegit();
 const exists = promisify(fs.exists);
@@ -47,18 +50,27 @@ async function refresh(path:string, remoteUrl:string) {
 }
 
 async function run() {
+  await recreate('./app');
+
+  if(process.env.DEPLOY_ENV === 'development') {
+    await copy('./.env.dev', './app/.env');
+  } else if(process.env.DEPLOY_ENV === 'production') {
+    await copy('./.env.prod', './app/.env');
+  } else {
+    throw new Error(`Unrecognized environment (${process.env.DEPLOY_ENV}), stopping deployment`)
+  }
+
   await refresh('./repos/ajc-back', 'git@github.com:ALJCepeda/ajcepeda-back.git');
   await refresh('./repos/ajc-front','git@github.com:ALJCepeda/ajcepeda-front.git');
 
-  await recreate('./dist');
-  await copy('./repos/ajc-back/dist', './dist');
-  await copy('./repos/ajc-front/dist', './dist');
-  await copy('./repos/ajc-back/package.json', './dist/package.json');
-  await copy('./repos/ajc-back/package-lock.json', './dist/package-lock.json');
-  await copy('./repos/ajc-front/src/index.html', './dist/index.html');
-  await copy('./.env.local', './dist/.env');
+  await copy('./repos/ajc-back/dist', './app/dist');
+  await copy('./repos/ajc-front/dist', './app/dist');
+  await copy('./repos/ajc-back/app.yaml', './app/app.yaml');
+  await copy('./repos/ajc-back/package.json', './app/package.json');
+  await copy('./repos/ajc-back/package-lock.json', './app/package-lock.json');
+  await copy('./repos/ajc-front/src/index.html', './app/dist/index.html');
 
-  await runCommand('npm ci', './dist');
+  await runCommand('npm ci', './app');
 }
 
 run().then(() => {

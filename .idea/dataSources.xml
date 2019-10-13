@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="AJCWeb Prod" uuid="2b0fb7cc-d8b1-4346-bee4-c6c0c5ae0754">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://35.185.113.180:5432/ajcweb</jdbc-url>
+    </data-source>
+  </component>
+</project>
