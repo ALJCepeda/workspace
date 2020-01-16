@@ -1,0 +1,51 @@
+version: "3.7"
+
+x-common-variables: &variables
+  POSTGRES_USER: ajc-web
+  POSTGRES_PASSWORD: password
+
+services:
+  back:
+    container_name: ajc-back
+    volumes:
+      - ./volumes/ajc-back:/repo
+    links:
+      - db
+    ports:
+      - '9229:9229'
+    environment:
+      <<: *variables
+      POSTGRES_HOST: db
+    tty: true
+    build:
+      context: C:/Users/206642150/Documents/repos/docker
+      dockerfile: git/Dockerfile
+      args:
+        GIT_URL: https://github.com/ALJCepeda/ajc-back.git
+        GIT_BRANCH: dev
+  front:
+    container_name: ajc-front
+    volumes:
+      - ./volumes/ajc-front:/repo
+    tty: true
+    build:
+      context: C:/Users/206642150/Documents/repos/docker
+      dockerfile: git/Dockerfile
+      args:
+        GIT_URL: https://github.com/ALJCepeda/ajc-front.git
+        GIT_BRANCH: dev
+  db:
+    container_name: ajc-db
+    ports:
+      - '5432:5432'
+    volumes:
+      - ajc-web:/var/lib/postgresql/data:Z
+    environment:
+      <<: *variables
+    image: postgres:11
+volumes:
+  ajc-web:
+    external: true
+networks:
+  default:
+    attachable: true
