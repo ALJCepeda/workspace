@@ -5,28 +5,32 @@ x-common-variables: &variables
   POSTGRES_PASSWORD: password
 
 services:
-  back:
+  ajc-back:
     container_name: ajc-back
+    stdin_open: true
+    tty: true
     volumes:
-      - ./volumes/ajc-back:/repo
+      - ./mnt/ajc-back:/mnt/host
     links:
-      - db
+      - ajc-db
     ports:
       - '9229:9229'
+      - '3000:3000'
     environment:
       <<: *variables
-      POSTGRES_HOST: db
-    tty: true
+      POSTGRES_HOST: ajc-db
+      PORT: 3000
+      NODE_ENV: dev
     build:
       context: C:/Users/206642150/Documents/repos/docker
       dockerfile: git/Dockerfile
       args:
         GIT_URL: https://github.com/ALJCepeda/ajc-back.git
         GIT_BRANCH: dev
-  front:
+  ajc-front:
     container_name: ajc-front
     volumes:
-      - ./volumes/ajc-front:/repo
+      - ./mnt/ajc-front:/mnt/host
     tty: true
     build:
       context: C:/Users/206642150/Documents/repos/docker
@@ -34,7 +38,7 @@ services:
       args:
         GIT_URL: https://github.com/ALJCepeda/ajc-front.git
         GIT_BRANCH: dev
-  db:
+  ajc-db:
     container_name: ajc-db
     ports:
       - '5432:5432'
