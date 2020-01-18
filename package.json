@@ -10,8 +10,9 @@
     "build": "ts-node src/index.ts",
     "create:logs": "mkdir app/logs && touch app/logs/access.log && touch app/logs/console.log && touch app/logs/error.log",
     "local": "cd app && node dist/index.js",
-    "up": "docker-compose up -d",
-    "down": "docker-compose down",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:build": "docker-compose build",
     "back:dev": "docker-compose exec ajc-back npm run dev",
     "back:inspect": "docker-compose exec ajc-back npm run inspect"
   },
