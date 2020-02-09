@@ -11,6 +11,7 @@ services:
     tty: true
     volumes:
       - ./mnt/ajc-back:/mnt/host
+      - ~/.ssh:/mnt/.ssh
     links:
       - ajc-db
     ports:
@@ -22,7 +23,7 @@ services:
       PORT: 3000
       NODE_ENV: dev
     build:
-      context: C:/Users/206642150/Documents/repos/docker
+      context: https://github.com/ALJCepeda/docker.git
       dockerfile: git/Dockerfile
       args:
         GIT_URL: https://github.com/ALJCepeda/ajc-back.git
@@ -31,9 +32,10 @@ services:
     container_name: ajc-front
     volumes:
       - ./mnt/ajc-front:/mnt/host
+      - ~/.ssh:/mnt/.ssh
     tty: true
     build:
-      context: C:/Users/206642150/Documents/repos/docker
+      context: https://github.com/ALJCepeda/docker.git
       dockerfile: git/Dockerfile
       args:
         GIT_URL: https://github.com/ALJCepeda/ajc-front.git
@@ -43,12 +45,12 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - ajc-web:/var/lib/postgresql/data:Z
+      - ajc-db:/var/lib/postgresql/data:Z
     environment:
       <<: *variables
     image: postgres:11
 volumes:
-  ajc-web:
+  ajc-db:
     external: true
 networks:
   default:
