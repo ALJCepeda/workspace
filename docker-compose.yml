@@ -3,7 +3,7 @@ version: "3.7"
 x-common-variables: &variables
   POSTGRES_USER: ajc-web
   POSTGRES_PASSWORD: password
-  NODE_ENV: dev
+  NODE_ENV: development
 
 services:
   ajc-back:
