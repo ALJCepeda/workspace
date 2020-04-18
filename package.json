@@ -13,6 +13,8 @@
     "d:up": "docker-compose up -d",
     "d:down": "docker-compose down",
     "d:build": "docker-compose build",
+    "f:dev": "docker-compose exec ajc-front npm run dev",
+    "f:zsh": "docker-compose exec ajc-front zsh",
     "b:dev": "docker-compose exec ajc-back npm run dev",
     "b:inspect": "docker-compose exec ajc-back npm run inspect",
     "b:zsh": "docker-compose exec ajc-back zsh"

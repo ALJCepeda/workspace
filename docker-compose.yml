@@ -3,6 +3,7 @@ version: "3.7"
 x-common-variables: &variables
   POSTGRES_USER: ajc-web
   POSTGRES_PASSWORD: password
+  NODE_ENV: dev
 
 services:
   ajc-back:
@@ -15,13 +16,11 @@ services:
     links:
       - ajc-db
     ports:
-      - '9229:9229'
       - '3000:3000'
     environment:
       <<: *variables
       POSTGRES_HOST: ajc-db
       PORT: 3000
-      NODE_ENV: dev
     build:
       context: https://github.com/ALJCepeda/docker.git
       dockerfile: git/Dockerfile
@@ -33,13 +32,32 @@ services:
     volumes:
       - ./mnt/ajc-front:/mnt/host
       - ~/.ssh:/mnt/.ssh
+    links:
+      - ajc-back
+    environment:
+      <<: *variables
+      VUE_APP_API_URL: localhost:3000
     tty: true
+    ports:
+      - '8080:8080'
     build:
       context: https://github.com/ALJCepeda/docker.git
       dockerfile: git/Dockerfile
       args:
         GIT_URL: https://github.com/ALJCepeda/ajc-front.git
         GIT_BRANCH: dev
+  ajc-shared:
+      container_name: ajc-shared
+      volumes:
+        - ./mnt/ajc-shared:/mnt/host
+        - ~/.ssh:/mnt/.ssh
+      tty: true
+      build:
+        context: https://github.com/ALJCepeda/docker.git
+        dockerfile: git/Dockerfile
+        args:
+          GIT_URL: https://github.com/ALJCepeda/ajc-shared.git
+          GIT_BRANCH: dev
   ajc-db:
     container_name: ajc-db
     ports:

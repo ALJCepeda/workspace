@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ajc-build.iml" filepath="$PROJECT_DIR$/.idea/ajc-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mnt/ajc-front/.idea/ajc-front.iml" filepath="$PROJECT_DIR$/mnt/ajc-front/.idea/ajc-front.iml" />
     </modules>
   </component>
 </project>
