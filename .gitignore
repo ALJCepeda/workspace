@@ -6,3 +6,4 @@ repos
 mnt
 *.log
 npm-debug.*
+.idea
