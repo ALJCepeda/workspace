@@ -34,7 +34,7 @@ services:
       - pgadmin:/var/lib/pgadmin
     image: dpage/pgadmin4:4.22
   server:
-    image: node:12
+    image: ajrelic/dev:latest
     command: bash
     working_dir: /host/app
     env_file: .env
@@ -45,7 +45,7 @@ services:
     ports:
       - 8000:8000
   client:
-    image: node:12
+    image: ajrelic/dev:latest
     command: bash
     working_dir: /host/app
     env_file: .env
