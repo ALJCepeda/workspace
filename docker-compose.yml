@@ -15,7 +15,7 @@ services:
     ports:
       - '9090:9090'
     volumes:
-      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+      - ./configs/prometheus.yaml:/etc/prometheus/prometheus.yml
     image: prom/prometheus
   grafana:
     env_file:
@@ -33,6 +33,28 @@ services:
     volumes:
       - pgadmin:/var/lib/pgadmin
     image: dpage/pgadmin4:4.22
+  server:
+    image: node:12
+    command: bash
+    working_dir: /host/app
+    env_file: .env
+    tty: true
+    volumes:
+      - ./repos/ajc-back:/host/app
+      - ./repos/expressman:/host/expressman
+    ports:
+      - 8000:8000
+  client:
+    image: node:12
+    command: bash
+    working_dir: /host/app
+    env_file: .env
+    tty: true
+    volumes:
+      - ./repos/ajc-front:/host/app
+      - ./repose/expressman:/host/expressman
+    ports:
+      - 8080:8080
 volumes:
   postgres:
   grafana:

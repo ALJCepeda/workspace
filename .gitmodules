@@ -1,9 +1,12 @@
 [submodule "ajc-front"]
-	path = ajc-front
+	path = repos/ajc-front
 	url = git@github.com:ALJCepeda/ajc-front.git
 [submodule "ajc-back"]
-	path = ajc-back
+	path = repos/ajc-back
 	url = git@github.com:ALJCepeda/ajc-back.git
 [submodule "ajc-shared"]
-	path = ajc-shared
+	path = repos/ajc-shared
 	url = git@github.com:ALJCepeda/ajc-shared.git
+[submodule "repos/expressman"]
+	path = repos/expressman
+	url = git@github.com:ALJCepeda/expressman.git
