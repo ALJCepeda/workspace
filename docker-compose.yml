@@ -42,6 +42,7 @@ services:
     volumes:
       - ./repos/ajc-back:/host/app
       - ./repos/expressman:/host/expressman
+      - ./repos/ajc-shared:/host/ajc-shared
     ports:
       - 8000:8000
   client:
@@ -52,7 +53,7 @@ services:
     tty: true
     volumes:
       - ./repos/ajc-front:/host/app
-      - ./repose/expressman:/host/expressman
+      - ./repos/ajc-shared:/host/ajc-shared
     ports:
       - 8080:8080
 volumes:
