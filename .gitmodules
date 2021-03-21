@@ -10,3 +10,9 @@
 [submodule "repos/expressman"]
 	path = repos/expressman
 	url = git@github.com:ALJCepeda/expressman.git
+[submodule "repos/ajc-client"]
+	path = repos/ajc-client
+	url = git@github.com:ALJCepeda/ajc-client.git
+[submodule "repos/ts-generator"]
+	path = repos/ts-generator
+	url = git@github.com:ALJCepeda/ts-generator.git
